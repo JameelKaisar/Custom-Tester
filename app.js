@@ -61,7 +61,7 @@ app.get('/recipe', (req, res) => {
         "pulse_timeout": 15000,
         "targets": targets,
         "pulses": 3,
-        "pulse_delay": 2000,
+        "pulse_delay": 500,
         "name": "WMF Tester",
         "type": "http_get",
         "ctx": {

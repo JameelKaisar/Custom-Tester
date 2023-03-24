@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WMF Tester</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <h1>WMF Tester</h1>
 
+    <button id="toggle-button">Start</button>
+    <span id="testing-message"></span>
+
+    <div id="result-table">
+        <div style="padding: 10px;">Results will appear here!</div>
+    </div>
+
+    <div>
+        <a href="https://gerrit.wikimedia.org/r/plugins/gitiles/operations/dns/+/refs/heads/master/geo-maps" target="_blank">
+            View Current Mapping
+        </a>
+    </div>
+
     <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
