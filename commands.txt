@@ -1,0 +1,9 @@
+npm init -y
+
+npm install express
+
+touch app.js
+
+npm install
+
+npm run tester
