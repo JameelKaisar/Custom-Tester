@@ -3,7 +3,6 @@
 // Date     :   Mar 26, 2023
 
 
-// shuffle array after each start
 // syncronize ith pulse of each target?
 // this.busy -> Enforce only 1 probe at a time
 // static class
@@ -51,8 +50,11 @@ class WMFTester {
             return;
         }
 
+        const targets = this.targets.keys();
+        this.shuffleArray(targets);
         const probes = [];
-        for (const target of this.targets.keys()) {
+
+        for (const target of targets) {
             probes.push(this.probeTarget(target));
         }
 
@@ -115,7 +117,7 @@ class WMFTester {
         return new Promise(function (resolve, reject) {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', target_url, true);
-            xhr.onreadystatechange = async function () {
+            xhr.onreadystatechange = function () {
                 switch (xhr.readyState) {
                     case 4:
                         resolve();
@@ -126,10 +128,10 @@ class WMFTester {
         });
     }
 
-    // async loadUsingFetch(target) {
-    //     let target_url = this.targets.get(target);
-    //     await fetch(target_url);
-    // }
+    async loadUsingFetch(target) {
+        let target_url = this.targets.get(target);
+        await fetch(target_url);
+    }
 
     handleProbeResult(target) {
         let target_url = this.targets.get(target);
@@ -144,6 +146,13 @@ class WMFTester {
             target_entry[3] + Math.round(duration),
             target_entry[4] + 1
         ]);
+    }
+
+    shuffleArray(array) {
+        for (let i=array.length-1; i>0; i--) {
+            const j = Math.floor(Math.random() * (i+1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
     async delay(ms) {
