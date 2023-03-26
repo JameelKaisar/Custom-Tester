@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tester": "node app.js"
+    "tester": "node app.js",
+    "intester": "npm install && npm run tester"
   },
   "keywords": [],
   "author": "",
