@@ -5,6 +5,7 @@
 
 // syncronize ith pulse of each target?
 // this.busy -> Enforce only 1 probe at a time
+// Enforce only 1 target at a time
 // static class
 
 
@@ -166,21 +167,21 @@ class WMFTester {
 
 
 
-function onComplete(data) {
-    let data_list = Object.values(data);
-    data_list.sort((a, b) => {
-        return a[3]/a[4] < b[3]/b[4] ? -1 : 1;
-    });
-    for (const target of data_list) {
-        console.log(`${target[0]}: min = ${target[1]}, max = ${target[2]}, avg = ${Math.round(target[3]/target[4])}, pulses = ${target[4]}`);
-    }
-}
+// function onComplete(data) {
+//     let data_list = Object.values(data);
+//     data_list.sort((a, b) => {
+//         return a[3]/a[4] < b[3]/b[4] ? -1 : 1;
+//     });
+//     for (const target of data_list) {
+//         console.log(`${target[0]}: min = ${target[1]}, max = ${target[2]}, avg = ${Math.round(target[3]/target[4])}, pulses = ${target[4]}`);
+//     }
+// }
 
-function onError(err) {
-    console.log(err);
-}
+// function onError(err) {
+//     console.log(err);
+// }
 
-let wmf_tester = new WMFTester();
-wmf_tester.setRecipeUrl("/recipe");
+// let wmf_tester = new WMFTester();
+// wmf_tester.setRecipeUrl("/recipe");
 // wmf_tester.setRecipeJson({});
-wmf_tester.runProbe(onComplete, onError);
+// wmf_tester.runProbe(onComplete, onError);

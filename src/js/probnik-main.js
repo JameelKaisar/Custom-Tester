@@ -31,7 +31,7 @@ function onCompleteProbnik(data) {
 function loadDataProbnik(data) {
     if (!probnik_target_data_init) {
         for (const target of data.data) {
-            this.target_data.set(
+            probnik_target_data.set(
                 target.name,
                 [target.name, Infinity, 0, 0, 0]
             );

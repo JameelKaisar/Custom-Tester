@@ -99,38 +99,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var recipeProvider = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["RestRecipeProvider"]('/recipe');
+
+var probnik_pulses = 3;
+var probnik_target_data = new Map();
+var probnik_target_data_init = false;
 
 var toggleButtonProbnik = document.getElementById('toggle-button-probnik');
 var testingMessageProbnik = document.getElementById('testing-message-probnik');
 
-var testerIsActive = false;
+var probnikTesterActive = false;
+var probnikTesterTimer = null;
 
-var probeTimer = null;
+var recipeProvider = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["RestRecipeProvider"]('/recipe');
+var probnik_tester = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["BrowserProbe"](recipeProvider, onCompleteProbnik);
 
-function onComplete(data) {
-    if (testerIsActive) {
-        handleData(data);
-        probeTimer = setTimeout(runProbe, 500);
+
+function onCompleteProbnik(data) {
+    if (probnikTesterActive) {
+        loadDataProbnik(data);
+        let data_list = Object.values(probnik_target_data);
+        data_list.sort((a, b) => {
+            return a[3]/a[4] < b[3]/b[4] ? -1 : 1;
+        });
+        populateTable(data_list, 'result-table-probnik');
+        probnikTesterTimer = setTimeout(runProbeProbnik, 500);
     }
 }
 
-function runProbe() {
-    var t = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["BrowserProbe"](recipeProvider, onComplete);
-    t.start();
+
+function loadDataProbnik(data) {
+    if (!probnik_target_data_init) {
+        for (const target of data.data) {
+            probnik_target_data.set(
+                target.name,
+                [target.name, Infinity, 0, 0, 0]
+            );
+        }
+        probnik_target_data_init = true;
+    }
+    for (const target of data.data) {
+        for (let i=0; i<probnik_pulses; i++) {
+            probnik_target_data.set(target.name, [
+                target.name,
+                Math.min(probnik_target_data.get(target.name)[1], Math.round(target.data[i].d)),
+                Math.max(probnik_target_data.get(target.name)[2], Math.round(target.data[i].d)),
+                probnik_target_data.get(target.name)[3] + Math.round(target.data[i].d),
+                probnik_target_data.get(target.name)[4] + 1
+            ]);
+        }
+    }
 }
 
-function toggleTest() {
-    toggleButtonProbnik.innerHTML = testerIsActive ? 'Start' : 'Stop';
-    testingMessageProbnik.innerHTML = testerIsActive ? '' : 'Testing...';
-    testerIsActive = !testerIsActive;
-    clearTimeout(probeTimer);
-    if (testerIsActive)
-        runProbe();
+
+function runProbeProbnik() {
+    probnik_tester.start();
 }
 
-toggleButtonProbnik.addEventListener('click', toggleTest);
 
+function toggleButtonProbnikHandler() {
+    probnikTesterActive = !probnikTesterActive;
+    toggleButtonProbnik.innerHTML = probnikTesterActive ? 'Stop' : 'Start';
+    testingMessageProbnik.innerHTML = probnikTesterActive ? 'Testing...' : '';
+    clearTimeout(probnikTesterTimer);
+    if (probnikTesterActive)
+        runProbeProbnik();
+}
+
+
+toggleButtonProbnik.addEventListener('click', toggleButtonProbnikHandler);
 
 
 /***/ }),
@@ -924,4 +960,4 @@ exports.TesterFactory = TesterFactory;
 /***/ })
 
 /******/ });
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=probnik.js.map
