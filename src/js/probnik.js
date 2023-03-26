@@ -111,13 +111,12 @@ var probnikTesterActive = false;
 var probnikTesterTimer = null;
 
 var recipeProvider = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["RestRecipeProvider"]('/recipe');
-var probnik_tester = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["BrowserProbe"](recipeProvider, onCompleteProbnik);
 
 
 function onCompleteProbnik(data) {
     if (probnikTesterActive) {
         loadDataProbnik(data);
-        let data_list = Array.from(probnik_target_data.values())
+        let data_list = Array.from(probnik_target_data.values());
         data_list.sort((a, b) => {
             return a[3]/a[4] < b[3]/b[4] ? -1 : 1;
         });
@@ -152,6 +151,7 @@ function loadDataProbnik(data) {
 
 
 function runProbeProbnik() {
+    var probnik_tester = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["BrowserProbe"](recipeProvider, onCompleteProbnik);
     probnik_tester.start();
 }
 

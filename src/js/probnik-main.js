@@ -12,7 +12,6 @@ var probnikTesterActive = false;
 var probnikTesterTimer = null;
 
 var recipeProvider = new RestRecipeProvider('/recipe');
-var probnik_tester = new BrowserProbe(recipeProvider, onCompleteProbnik);
 
 
 function onCompleteProbnik(data) {
@@ -53,6 +52,7 @@ function loadDataProbnik(data) {
 
 
 function runProbeProbnik() {
+    var probnik_tester = new BrowserProbe(recipeProvider, onCompleteProbnik);
     probnik_tester.start();
 }
 
