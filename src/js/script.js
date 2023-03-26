@@ -2,7 +2,7 @@ var dcs_data = new Map();
 var dcs_data_init = false;
 
 function dcsDataListPlot(list) {
-    const result_table = document.getElementById('result-table');
+    const result_table = document.getElementById('result-table-probnik');
     const table = document.createElement('table');
     const thead = document.createElement('tr');
     for (const x of ["Data Center", "Minimum", "Maximum", "Average", "Pulses"]) {

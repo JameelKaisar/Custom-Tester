@@ -2,8 +2,8 @@ import { RestRecipeProvider, BrowserProbe } from '../probnik/probnik.ts';
 
 var recipeProvider = new RestRecipeProvider('/recipe');
 
-var toggleButton = document.getElementById('toggle-button');
-var testingMessage = document.getElementById('testing-message');
+var toggleButtonProbnik = document.getElementById('toggle-button-probnik');
+var testingMessageProbnik = document.getElementById('testing-message-probnik');
 
 var testerIsActive = false;
 
@@ -22,13 +22,13 @@ function runProbe() {
 }
 
 function toggleTest() {
-    toggleButton.innerHTML = testerIsActive ? 'Start' : 'Stop';
-    testingMessage.innerHTML = testerIsActive ? '' : 'Testing...';
+    toggleButtonProbnik.innerHTML = testerIsActive ? 'Start' : 'Stop';
+    testingMessageProbnik.innerHTML = testerIsActive ? '' : 'Testing...';
     testerIsActive = !testerIsActive;
     clearTimeout(probeTimer);
     if (testerIsActive)
         runProbe();
 }
 
-toggleButton.addEventListener('click', toggleTest);
+toggleButtonProbnik.addEventListener('click', toggleTest);
 

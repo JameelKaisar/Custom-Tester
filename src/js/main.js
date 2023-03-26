@@ -101,8 +101,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var recipeProvider = new _probnik_probnik_ts__WEBPACK_IMPORTED_MODULE_0__["RestRecipeProvider"]('/recipe');
 
-var toggleButton = document.getElementById('toggle-button');
-var testingMessage = document.getElementById('testing-message');
+var toggleButtonProbnik = document.getElementById('toggle-button-probnik');
+var testingMessageProbnik = document.getElementById('testing-message-probnik');
 
 var testerIsActive = false;
 
@@ -121,15 +121,15 @@ function runProbe() {
 }
 
 function toggleTest() {
-    toggleButton.innerHTML = testerIsActive ? 'Start' : 'Stop';
-    testingMessage.innerHTML = testerIsActive ? '' : 'Testing...';
+    toggleButtonProbnik.innerHTML = testerIsActive ? 'Start' : 'Stop';
+    testingMessageProbnik.innerHTML = testerIsActive ? '' : 'Testing...';
     testerIsActive = !testerIsActive;
     clearTimeout(probeTimer);
     if (testerIsActive)
         runProbe();
 }
 
-toggleButton.addEventListener('click', toggleTest);
+toggleButtonProbnik.addEventListener('click', toggleTest);
 
 
 
