@@ -32,7 +32,7 @@ class WMFTester {
         this.target_data = null;
     }
 
-    async runProbe(onComplete) {
+    async runProbe(onComplete, onError) {
         if (!this.recipe && !this.recipeUrl) {
             console.log("No recipe found!");
             return;
