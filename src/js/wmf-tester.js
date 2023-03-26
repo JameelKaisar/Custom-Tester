@@ -109,7 +109,7 @@ class WMFTester {
                 continue;
             }
             this.handleProbeResult(target);
-            this.delay(this.pulse_delay);
+            await this.delay(this.pulse_delay);
         }
     }
 
